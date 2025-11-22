@@ -81,7 +81,7 @@ const targets = [
     ],
     bio: 'Farmers run their own businesses, and many of them, like any other industry, have their eyes on the horizon. The Expansionist is looking to the operation’s future and wants to expand the farming operation, primarily by obtaining more land.',
     trait: 'Expansionist',
-    avatar: '/Farmer-1.jpg',
+    avatar: `${import.meta.env.BASE_URL}Farmer-1.jpg`,
   },
   {
     name: 'Fred A. Wilkens',
