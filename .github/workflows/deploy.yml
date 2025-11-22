@@ -3,8 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change this if your default branch is named differently (e.g., 'master')
-  workflow_dispatch:  # Allows manual triggering from Actions tab
+      - main # Change this if your default branch is named differently (e.g., 'master')
+  workflow_dispatch: # Allows manual triggering from Actions tab
 
 permissions:
   contents: write
@@ -12,7 +12,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Adjust if you need a different Node version
+          node-version: '22.12.0' # Adjust if you need a different Node version
           cache: 'npm'
 
       - name: Install dependencies
@@ -35,5 +35,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # TanStack Start typically builds to 'dist'
+          publish_dir: ./dist # TanStack Start typically builds to 'dist'
           publish_branch: gh-pages

@@ -6,7 +6,8 @@ import viteTsConfigPaths from 'vite-tsconfig-paths'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/bi-design/', // Replace with your repository name
+  base: process.env.NODE_ENV === 'production' ? '/bi-design/' : '/',
+  // Replace with your repository name
   plugins: [
     // this is the plugin that enables path aliases
     viteTsConfigPaths({
