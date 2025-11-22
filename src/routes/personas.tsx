@@ -95,7 +95,7 @@ function App() {
                               className={`relative w-auto h-auto p-0 overflow-hidden flex items-center justify-center text-white font-bold text-lg`}
                             >
                               <img
-                                src="/expansionist.jpg"
+                                src={`${import.meta.env.BASE_URL}expansionist.jpg`}
                                 alt="The Expansionist"
                                 style={{ objectFit: 'cover' }}
                               />
@@ -153,7 +153,7 @@ function App() {
                               className={`w-auto h-auto p-0 overflow-hidden flex items-center justify-center text-white font-bold text-lg`}
                             >
                               <img
-                                src="/brand-loyalist.jpg"
+                                src={`${import.meta.env.BASE_URL}brand-loyalist.jpg`}
                                 alt="The Brand Loyalist"
                                 style={{ objectFit: 'cover' }}
                               />
@@ -212,7 +212,7 @@ function App() {
                               className={`w-auto h-auto p-0 overflow-hidden flex items-center justify-center text-white font-bold text-lg`}
                             >
                               <img
-                                src="/roi.jpg"
+                                src={`${import.meta.env.BASE_URL}roi.jpg`}
                                 alt="Numbers-Focused/ROI"
                                 style={{ objectFit: 'cover' }}
                               />
@@ -269,7 +269,7 @@ function App() {
                               className={`w-auto h-auto p-0 overflow-hidden flex items-center justify-center text-white font-bold text-lg`}
                             >
                               <img
-                                src="/sustainable.jpg"
+                                src={`${import.meta.env.BASE_URL}sustainable.jpg`}
                                 alt="The Sustainable Farmer"
                                 style={{ objectFit: 'cover' }}
                               />
@@ -331,7 +331,7 @@ function App() {
                               className={`w-auto h-auto p-0 overflow-hidden flex items-center justify-center text-white font-bold text-lg`}
                             >
                               <img
-                                src="/agtech.jpg"
+                                src={`${import.meta.env.BASE_URL}agtech.jpg`}
                                 alt="The AgTech Leader"
                                 style={{ objectFit: 'cover' }}
                               />
@@ -395,7 +395,7 @@ function App() {
                               className={`w-auto h-auto p-0 overflow-hidden flex items-center justify-center text-white font-bold text-lg`}
                             >
                               <img
-                                src="/frugal.jpg"
+                                src={`${import.meta.env.BASE_URL}frugal.jpg`}
                                 alt="The Frugal Farmer"
                                 style={{ objectFit: 'cover' }}
                               />
