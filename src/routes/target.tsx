@@ -105,7 +105,7 @@ const targets = [
     ],
     bio: 'The bottom line is the bottom line. This farmer makes vital decisions based on what will make the most profit and return on investment. Find the products and services that are going to improve their ROI and you’ll have a customer for life.',
     trait: 'ROI Focused',
-    avatar: '/Farmer-2.jpg',
+    avatar: `${import.meta.env.BASE_URL}Farmer-2.jpg`,
   },
   {
     name: 'Roy B. Biggins',
@@ -129,7 +129,7 @@ const targets = [
     ],
     bio: 'Once you win over a Brand Loyalist, you’ve got their business for the long haul. But, unfortunately, that also means that if they’re doing business with a competitor, getting them to switch to your product can be tricky.',
     trait: 'Brand Loyalist',
-    avatar: '/Farmer-3.jpg',
+    avatar: `${import.meta.env.BASE_URL}Farmer-3.jpg`,
   },
   {
     name: 'Bob W. Robertson',
@@ -153,7 +153,7 @@ const targets = [
     ],
     bio: 'Frugal farmers are more likely to use generic inputs than look to see prices online. They are likely not early adopters of technology or anything that requires a long-term payback. They are also more likely to be hands-on in farm decisions or activities.',
     trait: 'Frugal',
-    avatar: '/Farmer-4.jpg',
+    avatar: `${import.meta.env.BASE_URL}Farmer-4.jpg`,
   },
 ]
 
