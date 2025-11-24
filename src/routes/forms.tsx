@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { Eye, EyeOff } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
 import { AppSidebar } from '@/components/app-sidebar'
@@ -85,38 +83,6 @@ const ComponentDemo = ({
   </div>
 )
 
-const PasswordField = ({
-  control,
-}: {
-  control: React.InputHTMLAttributes<HTMLInputElement>
-}) => {
-  const [isView, setIsView] = useState(false)
-
-  return (
-    <div className="relative">
-      <Input
-        id="password"
-        type={isView ? 'text' : 'password'}
-        placeholder="Enter password"
-        {...control}
-      />
-      {isView ? (
-        <Eye
-          className="absolute w-4 h-4 right-2.5 top-2.5 z-10 cursor-pointer text-gray-500"
-          onClick={() => {
-            ;(setIsView(!isView), console.log(isView))
-          }}
-        />
-      ) : (
-        <EyeOff
-          className="absolute w-4 h-4 right-2.5 top-2.5 z-10 cursor-pointer text-gray-500"
-          onClick={() => setIsView(!isView)}
-        />
-      )}
-    </div>
-  )
-}
-
 function App() {
   return (
     <SidebarProvider>
@@ -172,16 +138,12 @@ function App() {
                       <ComponentDemo title="Basic Inputs">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
-                            <Input id="email" placeholder="Enter your email" />
+                            <Label htmlFor="input">First Name</Label>
+                            <Input type="input" placeholder="First name" />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
-                            <PasswordField
-                              control={{
-                                className: 'col-span-1 md:col-span-2',
-                              }}
-                            />
+                            <Label htmlFor="input">Last Name</Label>
+                            <Input type="input" placeholder="Last name" />
                           </div>
                         </div>
                       </ComponentDemo>
