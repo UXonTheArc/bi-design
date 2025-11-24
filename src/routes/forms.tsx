@@ -138,12 +138,20 @@ function App() {
                       <ComponentDemo title="Basic Inputs">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-2">
-                            <Label htmlFor="input">First Name</Label>
-                            <Input type="input" placeholder="First name" />
+                            <Label htmlFor="firstName">First Name</Label>
+                            <Input
+                              type="input"
+                              id="firstName"
+                              placeholder="First name"
+                            />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="input">Last Name</Label>
-                            <Input type="input" placeholder="Last name" />
+                            <Label htmlFor="lastName">Last Name</Label>
+                            <Input
+                              type="input"
+                              id="lastName"
+                              placeholder="Last name"
+                            />
                           </div>
                         </div>
                       </ComponentDemo>
