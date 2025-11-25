@@ -1,3 +1,5 @@
+import { Eye, EyeOff } from 'lucide-react'
+import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -9,6 +11,9 @@ export function RegistrationForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Add your registration logic here
@@ -56,22 +61,58 @@ export function RegistrationForm({
 
               <div className="grid gap-3">
                 <Label htmlFor="registerPassword">Password</Label>
-                <Input
-                  id="registerPassword"
-                  type="password"
-                  placeholder="Create a strong password"
-                  required
-                />
+                <div className="relative">
+                  <Input
+                    id="registerPassword"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Create a strong password"
+                    required
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-muted-foreground" />
+                    )}
+                    <span className="sr-only">
+                      {showPassword ? 'Hide password' : 'Show password'}
+                    </span>
+                  </Button>
+                </div>
               </div>
 
               <div className="grid gap-3">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  placeholder="Re-enter your password"
-                  required
-                />
+                <div className="relative">
+                  <Input
+                    id="confirmPassword"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    placeholder="Re-enter your password"
+                    required
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-muted-foreground" />
+                    )}
+                    <span className="sr-only">
+                      {showConfirmPassword ? 'Hide password' : 'Show password'}
+                    </span>
+                  </Button>
+                </div>
               </div>
 
               <div className="flex items-center space-x-2">
