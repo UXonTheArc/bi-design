@@ -138,20 +138,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenuSub>
                       {item.subItems.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.id}>
-                          <Link
-                            to={subItem.to}
-                            className={
-                              matchRoute({ to: subItem.to })
-                                ? 'active-link'
-                                : ''
-                            }
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={!!matchRoute({ to: subItem.to })}
                           >
-                            <SidebarMenuSubButton
-                              isActive={!!matchRoute({ to: subItem.to })}
+                            <Link
+                              to={subItem.to}
+                              className={
+                                matchRoute({ to: subItem.to })
+                                  ? 'active-link'
+                                  : ''
+                              }
                             >
                               {subItem.label}
-                            </SidebarMenuSubButton>
-                          </Link>
+                            </Link>
+                          </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}
                     </SidebarMenuSub>

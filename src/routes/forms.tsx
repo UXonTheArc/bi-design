@@ -134,7 +134,10 @@ function App() {
 
                   {/* Form Elements */}
                   <div className="space-y-8">
-                    <ComponentSection title="" description="">
+                    <ComponentSection
+                      title="Form Elements"
+                      description="Inputs"
+                    >
                       <ComponentDemo title="Basic Inputs">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-2">

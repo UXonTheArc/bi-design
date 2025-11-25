@@ -21,8 +21,6 @@ import { Route as FormsRouteImport } from './routes/forms'
 import { Route as FigmaRouteImport } from './routes/figma'
 import { Route as ElementsRouteImport } from './routes/elements'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
-import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 
 const VoiceAndToneRoute = VoiceAndToneRouteImport.update({
   id: '/voice-and-tone',
@@ -84,16 +82,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
-  id: '/api/demo-names',
-  path: '/api/demo-names',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
-  id: '/demo/start/api-request',
-  path: '/demo/start/api-request',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -108,8 +96,6 @@ export interface FileRoutesByFullPath {
   '/target': typeof TargetRoute
   '/typography': typeof TypographyRoute
   '/voice-and-tone': typeof VoiceAndToneRoute
-  '/api/demo-names': typeof ApiDemoNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -124,8 +110,6 @@ export interface FileRoutesByTo {
   '/target': typeof TargetRoute
   '/typography': typeof TypographyRoute
   '/voice-and-tone': typeof VoiceAndToneRoute
-  '/api/demo-names': typeof ApiDemoNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -141,8 +125,6 @@ export interface FileRoutesById {
   '/target': typeof TargetRoute
   '/typography': typeof TypographyRoute
   '/voice-and-tone': typeof VoiceAndToneRoute
-  '/api/demo-names': typeof ApiDemoNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -159,8 +141,6 @@ export interface FileRouteTypes {
     | '/target'
     | '/typography'
     | '/voice-and-tone'
-    | '/api/demo-names'
-    | '/demo/start/api-request'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -175,8 +155,6 @@ export interface FileRouteTypes {
     | '/target'
     | '/typography'
     | '/voice-and-tone'
-    | '/api/demo-names'
-    | '/demo/start/api-request'
   id:
     | '__root__'
     | '/'
@@ -191,8 +169,6 @@ export interface FileRouteTypes {
     | '/target'
     | '/typography'
     | '/voice-and-tone'
-    | '/api/demo-names'
-    | '/demo/start/api-request'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -208,8 +184,6 @@ export interface RootRouteChildren {
   TargetRoute: typeof TargetRoute
   TypographyRoute: typeof TypographyRoute
   VoiceAndToneRoute: typeof VoiceAndToneRoute
-  ApiDemoNamesRoute: typeof ApiDemoNamesRoute
-  DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -298,20 +272,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/demo-names': {
-      id: '/api/demo-names'
-      path: '/api/demo-names'
-      fullPath: '/api/demo-names'
-      preLoaderRoute: typeof ApiDemoNamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/api-request': {
-      id: '/demo/start/api-request'
-      path: '/demo/start/api-request'
-      fullPath: '/demo/start/api-request'
-      preLoaderRoute: typeof DemoStartApiRequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -328,8 +288,6 @@ const rootRouteChildren: RootRouteChildren = {
   TargetRoute: TargetRoute,
   TypographyRoute: TypographyRoute,
   VoiceAndToneRoute: VoiceAndToneRoute,
-  ApiDemoNamesRoute: ApiDemoNamesRoute,
-  DemoStartApiRequestRoute: DemoStartApiRequestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
