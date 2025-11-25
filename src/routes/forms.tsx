@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 
 import { AppSidebar } from '@/components/app-sidebar'
 import {
@@ -24,6 +26,10 @@ import {
 } from '@/components/ui/sidebar'
 import { ButtonToggle } from '@/components/button-toggle'
 import { LoginForm } from '@/components/login-form'
+import { LoginModal } from '@/components/login-modal'
+import { RegistrationForm } from '@/components/registration-form'
+import { RegistrationModal } from '@/components/registration-modal'
+import { OTPModal } from '@/components/otp-modal'
 
 export const Route = createFileRoute('/forms')({
   component: App,
@@ -84,6 +90,29 @@ const ComponentDemo = ({
 )
 
 function App() {
+  const [showLogin, setShowLogin] = useState(false)
+  const [showOTP, setShowOTP] = useState(false)
+  const [showRegistration, setShowRegistration] = useState(false)
+
+  const handleLogin = (data: any) => {
+    console.log('Login data:', data)
+    // Add your login logic here
+    alert(`Login attempt for: ${data.email}`)
+  }
+
+  const handleOTPVerify = (otp: string) => {
+    console.log('OTP verified:', otp)
+    // Add your verification logic here
+    alert(`OTP submitted: ${otp}`)
+    setShowOTP(false)
+  }
+
+  const handleRegistration = (data: any) => {
+    console.log('Registration data:', data)
+    // Add your registration logic here
+    alert(`Registration submitted for: ${data.email}`)
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -134,10 +163,7 @@ function App() {
 
                   {/* Form Elements */}
                   <div className="space-y-8">
-                    <ComponentSection
-                      title="Form Elements"
-                      description="Inputs"
-                    >
+                    <ComponentSection title="" description="">
                       <ComponentDemo title="Basic Inputs">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-2">
@@ -198,12 +224,15 @@ function App() {
                         </div>
                       </ComponentDemo>
                     </ComponentSection>
-                    {/* Modals */}
+                    {/* Full Page Forms */}
                     <ComponentSection
-                      title="Modals"
-                      description="Overlay dialogs for user interactions"
+                      title="Full Page Forms"
+                      description="Complete form layouts with images, ideal for dedicated pages"
                     >
-                      <ComponentDemo title="Sign-on">
+                      <ComponentDemo
+                        title="Sign-on"
+                        description="Full inline login form with image layout"
+                      >
                         <div className="flex flex-wrap gap-2">
                           <div className="bg-muted flex min-w-full flex-col items-center justify-center p-6 md:p-10">
                             <div className="w-full md:max-w-3xl">
@@ -212,9 +241,70 @@ function App() {
                           </div>
                         </div>
                       </ComponentDemo>
-                      <ComponentDemo title="Registration">
+                      <ComponentDemo
+                        title="Registration"
+                        description="Full inline registration form with image layout"
+                      >
                         <div className="flex flex-wrap gap-2">
-                          <Badge variant="draft">Coming Soon</Badge>
+                          <div className="bg-muted flex min-w-full flex-col items-center justify-center p-6 md:p-10">
+                            <div className="w-full md:max-w-3xl">
+                              <RegistrationForm />
+                            </div>
+                          </div>
+                        </div>
+                      </ComponentDemo>
+                    </ComponentSection>
+                    {/* Modals */}
+                    <ComponentSection
+                      title="Modals"
+                      description="Overlay dialogs for user interactions"
+                    >
+                      <ComponentDemo
+                        title="Sign-on Modal"
+                        description="Compact modal version for navigation headers and CTAs"
+                      >
+                        <div className="flex flex-wrap gap-2">
+                          <Button onClick={() => setShowLogin(true)}>
+                            Open Login Modal
+                          </Button>
+                          <LoginModal
+                            open={showLogin}
+                            onOpenChange={setShowLogin}
+                            onLogin={handleLogin}
+                          />
+                        </div>
+                      </ComponentDemo>
+                      <ComponentDemo
+                        title="One-Time Password (OTP)"
+                        description="Secure verification using shadcn/ui InputOTP with auto-complete, paste support, and keyboard navigation"
+                      >
+                        <div className="flex flex-wrap gap-2">
+                          <Button onClick={() => setShowOTP(true)}>
+                            Open OTP Modal
+                          </Button>
+                          <OTPModal
+                            open={showOTP}
+                            onOpenChange={setShowOTP}
+                            onVerify={handleOTPVerify}
+                            maxLength={6}
+                            title="Enter Verification Code"
+                            description="We've sent a 6-digit code to your email address"
+                          />
+                        </div>
+                      </ComponentDemo>
+                      <ComponentDemo
+                        title="Registration Modal"
+                        description="Compact modal version for space-constrained layouts"
+                      >
+                        <div className="flex flex-wrap gap-2">
+                          <Button onClick={() => setShowRegistration(true)}>
+                            Open Registration Modal
+                          </Button>
+                          <RegistrationModal
+                            open={showRegistration}
+                            onOpenChange={setShowRegistration}
+                            onRegister={handleRegistration}
+                          />
                         </div>
                       </ComponentDemo>
                       <ComponentDemo title="Calendar">

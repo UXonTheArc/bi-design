@@ -60,6 +60,13 @@ li:not(.group\/menu-sub-item):not(.group\/menu-item):not(nav li) {
   line-height: 1.25;
 }
 
+a {
+  color: hsl(var(--link));
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
 h1,
 h2,
 h3,
@@ -125,6 +132,7 @@ code {
   --brand-sul-complimentary-gray: oklch(0.503 0.0034 264.53);
   --brand-sul-complimentary-lt-gray: oklch(0.8825 0.0029 84.56);
   --brand-sul-complimentary-blue: oklch(0.5981 0.0665 254.02);
+  --link: 38 92% 50%; /* HSL values for light mode link color */
 }
 
 .dark {
@@ -172,6 +180,7 @@ code {
   --brand-sul-complimentary-gray: oklch(0.503 0.0034 264.53);
   --brand-sul-complimentary-lt-gray: oklch(0.8825 0.0029 84.56);
   --brand-sul-complimentary-blue: oklch(0.5981 0.0665 254.02);
+  --link: 48 96% 89%; /* HSL values for dark mode link color */
 }
 
 @theme inline {
