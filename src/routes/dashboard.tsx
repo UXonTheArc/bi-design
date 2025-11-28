@@ -1484,9 +1484,9 @@ function Dashboard() {
               </div>
               <Separator
                 orientation="vertical"
-                className="h-12 w-px bg-foreground/30"
+                className="min-h-12 w-px bg-foreground/30"
               />
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold text-lg">
+              <div className="flex h-12 w-12 min-h-12 min-w-12 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold text-lg">
                 JP
               </div>
             </div>
@@ -1502,15 +1502,19 @@ function Dashboard() {
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  {jakeStats['pre-auction']}
-                </div>
-                <div className="flex items-end justify-between mt-1">
-                  <p className="text-xs text-muted-foreground mb-0">
-                    Upcoming auctions
-                  </p>
+                <div className="flex flex-row mt-auto justify-between items-end">
+                  <div>
+                    <div className="text-2xl font-bold">
+                      {jakeStats['pre-auction']}
+                    </div>
+                    <div className="flex items-end justify-between mt-1">
+                      <p className="text-xs text-muted-foreground mb-0">
+                        Upcoming auctions
+                      </p>
+                    </div>
+                  </div>
                   <Button
-                    variant="outline"
+                    variant="default"
                     size="sm"
                     className="h-7 px-2 text-xs"
                     onClick={() => {
@@ -1531,15 +1535,19 @@ function Dashboard() {
                 <Gavel className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  {jakeStats['live-auction']}
-                </div>
-                <div className="flex items-end justify-between mt-1">
-                  <p className="text-xs text-muted-foreground mb-0">
-                    Currently active
-                  </p>
+                <div className="flex flex-row mt-auto justify-between items-end">
+                  <div>
+                    <div className="text-2xl font-bold">
+                      {jakeStats['live-auction']}
+                    </div>
+                    <div className="flex items-end justify-between mt-1">
+                      <p className="text-xs text-muted-foreground mb-0">
+                        Currently active
+                      </p>
+                    </div>
+                  </div>
                   <Button
-                    variant="outline"
+                    variant="default"
                     size="sm"
                     className="h-7 px-2 text-xs"
                     onClick={() => {
@@ -1560,15 +1568,19 @@ function Dashboard() {
                 <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  {jakeStats['post-auction']}
-                </div>
-                <div className="flex items-end justify-between mt-1">
-                  <p className="text-xs text-muted-foreground mb-0">
-                    Completed auctions
-                  </p>
+                <div className="flex flex-row mt-auto justify-between items-end">
+                  <div>
+                    <div className="text-2xl font-bold">
+                      {jakeStats['post-auction']}
+                    </div>
+                    <div className="flex items-end justify-between mt-1">
+                      <p className="text-xs text-muted-foreground mb-0">
+                        Completed auctions
+                      </p>
+                    </div>
+                  </div>
                   <Button
-                    variant="outline"
+                    variant="default"
                     size="sm"
                     className="h-7 px-2 text-xs"
                     onClick={() => {
@@ -1768,13 +1780,11 @@ function Dashboard() {
                           variant="secondary"
                           style={{
                             backgroundColor: hasActiveFilters
-                              ? 'hsl(var(--primary))'
+                              ? 'hsl(48 96% 53%)'
                               : 'color-mix(in oklab, var(--muted-foreground) 30%, transparent)',
                           }}
                           className={
-                            hasActiveFilters
-                              ? 'text-primary-foreground'
-                              : 'text-foreground'
+                            hasActiveFilters ? 'text-black' : 'text-foreground'
                           }
                         >
                           {hasActiveFilters
@@ -1791,13 +1801,11 @@ function Dashboard() {
                           variant="secondary"
                           style={{
                             backgroundColor: hasActiveFilters
-                              ? 'hsl(var(--primary))'
+                              ? 'hsl(48 96% 53%)'
                               : 'color-mix(in oklab, var(--muted-foreground) 30%, transparent)',
                           }}
                           className={
-                            hasActiveFilters
-                              ? 'text-primary-foreground'
-                              : 'text-foreground'
+                            hasActiveFilters ? 'text-black' : 'text-foreground'
                           }
                         >
                           {hasActiveFilters
@@ -1814,13 +1822,11 @@ function Dashboard() {
                           variant="secondary"
                           style={{
                             backgroundColor: hasActiveFilters
-                              ? 'hsl(var(--primary))'
+                              ? 'hsl(48 96% 53%)'
                               : 'color-mix(in oklab, var(--muted-foreground) 30%, transparent)',
                           }}
                           className={
-                            hasActiveFilters
-                              ? 'text-primary-foreground'
-                              : 'text-foreground'
+                            hasActiveFilters ? 'text-black' : 'text-foreground'
                           }
                         >
                           {hasActiveFilters
