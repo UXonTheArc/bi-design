@@ -1494,7 +1494,7 @@ function Dashboard() {
 
           {/* Stats Cards */}
           <div className="grid gap-4 md:grid-cols-3">
-            <Card>
+            <Card className="gap-2">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   My Pre-Auction
@@ -1527,7 +1527,7 @@ function Dashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="gap-2">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   My Live Auctions
@@ -1560,7 +1560,7 @@ function Dashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="gap-2">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   My Post-Auction
