@@ -5,6 +5,7 @@ import {
   AlertCircle,
   ChevronRight,
   CircleCheckBig,
+  Clock,
   Info,
   TriangleAlert,
 } from 'lucide-react'
@@ -528,7 +529,7 @@ function App() {
                         description="Flexible content containers"
                       >
                         <ComponentDemo title="Basic Card">
-                          <div className="max-w-sm">
+                          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                             <Card>
                               <CardHeader>
                                 <CardTitle>Card Title</CardTitle>
@@ -537,11 +538,38 @@ function App() {
                                 </CardDescription>
                               </CardHeader>
                               <CardContent>
-                                <p>This is the main content of the card.</p>
+                                <p>This is the main content.</p>
                               </CardContent>
                               <CardFooter>
                                 <Button>Action</Button>
                               </CardFooter>
+                            </Card>
+                            <Card>
+                              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">
+                                  Dashboard Card Title
+                                </CardTitle>
+                                <Clock className="h-4 w-4 text-muted-foreground" />
+                              </CardHeader>
+                              <CardContent className="flex flex-col h-full">
+                                <div className="flex flex-row mt-auto justify-between items-end">
+                                  <div>
+                                    <div className="text-2xl font-bold">1</div>
+                                    <div className="flex items-end justify-between mt-1">
+                                      <p className="text-xs text-muted-foreground mb-0">
+                                        Subtitle
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <Button
+                                    variant="default"
+                                    size="sm"
+                                    className="h-7 px-2 text-xs"
+                                  >
+                                    Show Me
+                                  </Button>
+                                </div>
+                              </CardContent>
                             </Card>
                           </div>
                         </ComponentDemo>

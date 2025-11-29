@@ -4,6 +4,10 @@ import {
   ArrowUpDown,
   CalendarIcon,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   Clock,
   Eye,
   Gavel,
@@ -71,6 +75,13 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Calendar } from '@/components/ui/calendar'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 export const Route = createFileRoute('/dashboard')({
   component: Dashboard,
@@ -230,6 +241,10 @@ function Dashboard() {
   const [filterTitle, setFilterTitle] = useState('')
   const [filterSalesRep, setFilterSalesRep] = useState('')
   const [dateRange, setDateRange] = useState<DateRange | undefined>()
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
 
   // Modal state
   const [selectedListing, setSelectedListing] = useState<AuctionListing | null>(
@@ -506,6 +521,25 @@ function Dashboard() {
     return 0
   })
 
+  // Pagination calculations
+  const totalItems = sortedListings.length
+  const totalPages = Math.ceil(totalItems / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const paginatedListings = sortedListings.slice(startIndex, endIndex)
+
+  // Reset to page 1 when filters change
+  React.useEffect(() => {
+    setCurrentPage(1)
+  }, [
+    filterAuctionId,
+    filterTitle,
+    filterSalesRep,
+    dateRange,
+    activeTab,
+    itemsPerPage,
+  ])
+
   // Jake's personal stats for top cards
   const jakeStats = {
     'pre-auction': auctionListings.filter(
@@ -587,7 +621,7 @@ function Dashboard() {
             <h1 className="text-lg font-semibold md:text-2xl">
               Auction Insights
             </h1>
-            <div className="flex items-center gap-4 justify-end w-full lg:w-auto">
+            <div className="flex items-center gap-4 justify-end">
               <div className="text-right">
                 <h2 className="text-base font-semibold">
                   Hello Jake, take action on your items
@@ -1147,7 +1181,7 @@ function Dashboard() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {sortedListings.length === 0 ? (
+                        {paginatedListings.length === 0 ? (
                           <TableRow>
                             <TableCell
                               colSpan={11}
@@ -1159,7 +1193,7 @@ function Dashboard() {
                             </TableCell>
                           </TableRow>
                         ) : (
-                          sortedListings.map((listing) => (
+                          paginatedListings.map((listing) => (
                             <TableRow key={listing.id}>
                               <TableCell className="font-medium">
                                 <TooltipProvider>
@@ -1244,6 +1278,91 @@ function Dashboard() {
                       </TableBody>
                     </Table>
                   </div>
+
+                  {/* Pagination Controls */}
+                  {totalItems > 0 && (
+                    <div className="flex items-center justify-between px-2 py-4">
+                      <div className="flex items-center gap-4">
+                        <div className="text-sm text-muted-foreground">
+                          Showing{' '}
+                          <span className="font-medium">{startIndex + 1}</span>{' '}
+                          to{' '}
+                          <span className="font-medium">
+                            {Math.min(endIndex, totalItems)}
+                          </span>{' '}
+                          of <span className="font-medium">{totalItems}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm text-muted-foreground !mb-0">
+                            Rows per page
+                          </p>
+                          <Select
+                            value={itemsPerPage.toString()}
+                            onValueChange={(value) =>
+                              setItemsPerPage(Number(value))
+                            }
+                          >
+                            <SelectTrigger className="h-8 w-[70px]">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="10">10</SelectItem>
+                              <SelectItem value="20">20</SelectItem>
+                              <SelectItem value="50">50</SelectItem>
+                              <SelectItem value="100">100</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="text-sm text-muted-foreground mr-2">
+                          Page {currentPage} of {totalPages}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => setCurrentPage(1)}
+                            disabled={currentPage === 1}
+                          >
+                            <ChevronsLeft className="h-4 w-4" />
+                            <span className="sr-only">First page</span>
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => setCurrentPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                            <span className="sr-only">Previous page</span>
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => setCurrentPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                            <span className="sr-only">Next page</span>
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => setCurrentPage(totalPages)}
+                            disabled={currentPage === totalPages}
+                          >
+                            <ChevronsRight className="h-4 w-4" />
+                            <span className="sr-only">Last page</span>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </TabsContent>
               </Tabs>
             </CardContent>
