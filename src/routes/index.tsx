@@ -207,7 +207,7 @@ function App() {
                       <Link to="/components">
                         <CardHeader>
                           <Blocks className="h-8 w-8 text-primary mb-2" />
-                          <CardTitle>Components</CardTitle>
+                          <CardTitle>Elements</CardTitle>
                           <CardDescription>
                             Set of reusable UI components built with shadcn/ui
                             and Tailwind CSS, designed for consistency and
