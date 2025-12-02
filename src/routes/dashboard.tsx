@@ -4,18 +4,27 @@ import {
   ArrowUpDown,
   CalendarIcon,
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   ChevronsLeft,
   ChevronsRight,
   Clock,
   Eye,
+  Filter,
   Gavel,
   X,
 } from 'lucide-react'
 import { format } from 'date-fns'
 import type { DateRange } from 'react-day-picker'
 import type { AuctionListing } from '@/data/mockAuctionData'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { cn } from '@/lib/utils'
 import { auctionListings } from '@/data/mockAuctionData'
 import { AppSidebar } from '@/components/app-sidebar'
@@ -251,6 +260,9 @@ function Dashboard() {
     null,
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Ref for scrolling to table
+  const tableCardRef = React.useRef<HTMLDivElement>(null)
 
   const openListingModal = (listing: AuctionListing) => {
     setSelectedListing(listing)
@@ -621,8 +633,8 @@ function Dashboard() {
             <h1 className="text-lg font-semibold md:text-2xl">
               Auction Insights
             </h1>
-            <div className="flex items-center gap-4 justify-end">
-              <div className="text-right">
+            <div className="flex items-center gap-4 sm:justify-start justify-end">
+              <div className="text-left lg:text-right">
                 <h2 className="text-base font-semibold">
                   Hello Jake, take action on your items
                 </h2>
@@ -653,9 +665,9 @@ function Dashboard() {
               </div>
               <Separator
                 orientation="vertical"
-                className="min-h-12 w-px bg-foreground/30"
+                className="hidden lg:block min-h-12 w-px bg-foreground/30"
               />
-              <div className="flex min-h-12 min-w-12 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold text-lg">
+              <div className="hidden lg:flex min-h-12 min-w-12 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold text-lg">
                 JP
               </div>
             </div>
@@ -689,6 +701,12 @@ function Dashboard() {
                     onClick={() => {
                       setActiveTab('pre-auction')
                       setFilterSalesRep('Jake Peters')
+                      setTimeout(() => {
+                        tableCardRef.current?.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start',
+                        })
+                      }, 100)
                     }}
                   >
                     Show Me
@@ -722,6 +740,12 @@ function Dashboard() {
                     onClick={() => {
                       setActiveTab('live-auction')
                       setFilterSalesRep('Jake Peters')
+                      setTimeout(() => {
+                        tableCardRef.current?.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start',
+                        })
+                      }, 100)
                     }}
                   >
                     Show Me
@@ -755,6 +779,12 @@ function Dashboard() {
                     onClick={() => {
                       setActiveTab('post-auction')
                       setFilterSalesRep('Jake Peters')
+                      setTimeout(() => {
+                        tableCardRef.current?.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start',
+                        })
+                      }, 200)
                     }}
                   >
                     Show Me
@@ -765,10 +795,10 @@ function Dashboard() {
           </div>
 
           {/* Auction Listings Table */}
-          <Card>
+          <Card ref={tableCardRef} className="scroll-mt-4 gap-2">
             <CardHeader>
               <div className="flex items-start justify-between">
-                <div>
+                <div className="pr-4">
                   <CardTitle>Browse Listings</CardTitle>
                   <CardDescription>
                     View and manage auction listings across all stages
@@ -780,171 +810,230 @@ function Dashboard() {
             <CardContent>
               <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsContent value={activeTab} className="mt-0">
-                  {/* Filters Section */}
-                  <div className="mb-4 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <Separator className="flex-1" />
-                      {hasActiveFilters && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={clearFilters}
-                          className="h-8 text-xs ml-4"
-                        >
-                          <X className="h-3 w-3 mr-1" />
-                          Clear All Filters
-                        </Button>
-                      )}
-                    </div>
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                      <div className="space-y-2 min-w-[200px]">
-                        <Label htmlFor="filter-auction-id" className="text-xs">
-                          Auction
-                        </Label>
-                        <div className="relative">
-                          <Input
-                            id="filter-auction-id"
-                            placeholder="Search by auction..."
-                            value={filterAuctionId}
-                            onChange={(e) => setFilterAuctionId(e.target.value)}
-                            className="h-9 pr-8"
-                            list="auction-names"
-                          />
-                          {filterAuctionId && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => setFilterAuctionId('')}
-                              className="absolute right-0 top-0 h-9 w-9 p-0 hover:bg-transparent"
+                  <Accordion
+                    type="single"
+                    collapsible
+                    className="w-full"
+                    defaultValue="item-1"
+                  >
+                    <AccordionItem
+                      value="item-1"
+                      className="mb-4 border rounded-lg bg-muted"
+                    >
+                      <AccordionTrigger className="px-4 hover:no-underline cursor-pointer">
+                        <div className="flex items-center gap-2">
+                          <Filter className="h-4 w-4" />
+                          <span>Filter</span>
+                          {hasActiveFilters && (
+                            <Badge
+                              variant="default"
+                              className="ml-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
                             >
-                              <X className="h-3 w-3" />
-                            </Button>
+                              {
+                                [
+                                  filterAuctionId,
+                                  filterTitle,
+                                  filterSalesRep,
+                                  dateRange?.from || dateRange?.to,
+                                ].filter(Boolean).length
+                              }
+                            </Badge>
                           )}
                         </div>
-                        <datalist id="auction-names">
-                          {uniqueAuctionNames.map((name) => (
-                            <option key={name} value={name} />
-                          ))}
-                        </datalist>
-                      </div>
-                      <div className="space-y-2 min-w-[200px]">
-                        <Label htmlFor="filter-title" className="text-xs">
-                          Auction Title
-                        </Label>
-                        <div className="relative">
-                          <Input
-                            id="filter-title"
-                            placeholder="Search by title..."
-                            value={filterTitle}
-                            onChange={(e) => setFilterTitle(e.target.value)}
-                            className="h-9 pr-8"
-                            list="auction-titles"
-                          />
-                          {filterTitle && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => setFilterTitle('')}
-                              className="absolute right-0 top-0 h-9 w-9 p-0 hover:bg-transparent"
-                            >
-                              <X className="h-3 w-3" />
-                            </Button>
-                          )}
-                        </div>
-                        <datalist id="auction-titles">
-                          {uniqueTitles.map((title) => (
-                            <option key={title} value={title} />
-                          ))}
-                        </datalist>
-                      </div>
-                      <div className="space-y-2 min-w-[200px]">
-                        <Label htmlFor="filter-sales-rep" className="text-xs">
-                          Sales Rep
-                        </Label>
-                        <div className="relative">
-                          <Input
-                            id="filter-sales-rep"
-                            placeholder="Search by rep..."
-                            value={filterSalesRep}
-                            onChange={(e) => setFilterSalesRep(e.target.value)}
-                            className="h-9 pr-8"
-                            list="sales-reps"
-                          />
-                          {filterSalesRep && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => setFilterSalesRep('')}
-                              className="absolute right-0 top-0 h-9 w-9 p-0 hover:bg-transparent"
-                            >
-                              <X className="h-3 w-3" />
-                            </Button>
-                          )}
-                        </div>
-                        <datalist id="sales-reps">
-                          {uniqueSalesReps.map((rep) => (
-                            <option key={rep} value={rep} />
-                          ))}
-                        </datalist>
-                      </div>
-                      <div className="space-y-2 min-w-[200px]">
-                        <Label className="text-xs">Date Range</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className={cn(
-                                'w-full h-9 justify-start text-left font-normal text-xs',
-                                !dateRange && 'text-muted-foreground',
-                              )}
-                            >
-                              <CalendarIcon className="mr-2 h-3 w-3" />
-                              {dateRange?.from ? (
-                                dateRange.to ? (
-                                  <>
-                                    {format(dateRange.from, 'LLL dd, y')} -{' '}
-                                    {format(dateRange.to, 'LLL dd, y')}
-                                  </>
-                                ) : (
-                                  format(dateRange.from, 'LLL dd, y')
-                                )
-                              ) : (
-                                <span>Pick a date range</span>
-                              )}
-                              {dateRange?.from && (
-                                <X
-                                  className="ml-auto h-3 w-3"
-                                  onClick={(e) => {
-                                    e.stopPropagation()
-                                    setDateRange(undefined)
-                                  }}
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4">
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <Separator className="flex-1" />
+                            {hasActiveFilters && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={clearFilters}
+                                className="h-8 text-xs ml-4"
+                              >
+                                <X className="h-3 w-3 mr-1" />
+                                Clear All Filters
+                              </Button>
+                            )}
+                          </div>
+                          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                            {/* Auction Filter */}
+                            <div className="space-y-2 min-w-[200px]">
+                              <Label
+                                htmlFor="filter-auction-id"
+                                className="text-xs"
+                              >
+                                Auction
+                              </Label>
+                              <div className="relative">
+                                <Input
+                                  id="filter-auction-id"
+                                  placeholder="Search by auction..."
+                                  value={filterAuctionId}
+                                  onChange={(e) =>
+                                    setFilterAuctionId(e.target.value)
+                                  }
+                                  className="h-9 pr-8 bg-background border-neutral-400"
+                                  list="auction-names"
                                 />
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              initialFocus
-                              mode="range"
-                              defaultMonth={dateRange?.from}
-                              selected={dateRange}
-                              onSelect={setDateRange}
-                              numberOfMonths={2}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </div>
-                    </div>
-                  </div>
+                                {filterAuctionId && (
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => setFilterAuctionId('')}
+                                    className="absolute right-0 top-0 h-9 w-9 p-0 hover:bg-transparent"
+                                  >
+                                    <X className="h-3 w-3" />
+                                  </Button>
+                                )}
+                              </div>
+                              <datalist id="auction-names">
+                                {uniqueAuctionNames.map((name) => (
+                                  <option key={name} value={name} />
+                                ))}
+                              </datalist>
+                            </div>
+
+                            {/* Auction Title Filter */}
+                            <div className="space-y-2 min-w-[200px]">
+                              <Label htmlFor="filter-title" className="text-xs">
+                                Auction Title
+                              </Label>
+                              <div className="relative">
+                                <Input
+                                  id="filter-title"
+                                  placeholder="Search by title..."
+                                  value={filterTitle}
+                                  onChange={(e) =>
+                                    setFilterTitle(e.target.value)
+                                  }
+                                  className="h-9 pr-8 bg-background border-neutral-400"
+                                  list="auction-titles"
+                                />
+                                {filterTitle && (
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => setFilterTitle('')}
+                                    className="absolute right-0 top-0 h-9 w-9 p-0 hover:bg-transparent"
+                                  >
+                                    <X className="h-3 w-3" />
+                                  </Button>
+                                )}
+                              </div>
+                              <datalist id="auction-titles">
+                                {uniqueTitles.map((title) => (
+                                  <option key={title} value={title} />
+                                ))}
+                              </datalist>
+                            </div>
+
+                            {/* Sales Rep Filter */}
+                            <div className="space-y-2 min-w-[200px]">
+                              <Label
+                                htmlFor="filter-sales-rep"
+                                className="text-xs"
+                              >
+                                Sales Rep
+                              </Label>
+                              <div className="relative">
+                                <Input
+                                  id="filter-sales-rep"
+                                  placeholder="Search by rep..."
+                                  value={filterSalesRep}
+                                  onChange={(e) =>
+                                    setFilterSalesRep(e.target.value)
+                                  }
+                                  className="h-9 pr-8 bg-background border-neutral-400"
+                                  list="sales-reps"
+                                />
+                                {filterSalesRep && (
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => setFilterSalesRep('')}
+                                    className="absolute right-0 top-0 h-9 w-9 p-0 hover:bg-transparent"
+                                  >
+                                    <X className="h-3 w-3" />
+                                  </Button>
+                                )}
+                              </div>
+                              <datalist id="sales-reps">
+                                {uniqueSalesReps.map((rep) => (
+                                  <option key={rep} value={rep} />
+                                ))}
+                              </datalist>
+                            </div>
+
+                            {/* Date Range Filter */}
+                            <div className="space-y-2 min-w-[200px]">
+                              <Label className="text-xs">Date Range</Label>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <Button
+                                    variant="outline"
+                                    className={cn(
+                                      'w-full h-9 justify-start text-left font-normal text-xs bg-background',
+                                      !dateRange && 'text-muted-foreground',
+                                    )}
+                                  >
+                                    <CalendarIcon className="mr-2 h-3 w-3" />
+                                    {dateRange?.from ? (
+                                      dateRange.to ? (
+                                        <>
+                                          {format(dateRange.from, 'LLL dd, y')}{' '}
+                                          - {format(dateRange.to, 'LLL dd, y')}
+                                        </>
+                                      ) : (
+                                        format(dateRange.from, 'LLL dd, y')
+                                      )
+                                    ) : (
+                                      <span>Pick a date range</span>
+                                    )}
+                                    {dateRange?.from && (
+                                      <X
+                                        className="ml-auto h-3 w-3"
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          setDateRange(undefined)
+                                        }}
+                                      />
+                                    )}
+                                  </Button>
+                                </PopoverTrigger>
+                                <PopoverContent
+                                  className="w-auto p-0"
+                                  align="start"
+                                >
+                                  <Calendar
+                                    initialFocus
+                                    mode="range"
+                                    defaultMonth={dateRange?.from}
+                                    selected={dateRange}
+                                    onSelect={setDateRange}
+                                    numberOfMonths={2}
+                                  />
+                                </PopoverContent>
+                              </Popover>
+                            </div>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
 
                   {/* Tabs and Status Tallies - Moved below filters */}
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
-                    <TabsList className="rounded-xl w-full lg:w-auto">
+                    <TabsList className="rounded-[10px] w-full lg:w-auto">
                       <TabsTrigger
                         value="pre-auction"
-                        className="gap-2 cursor-pointer rounded-xl flex-1 lg:flex-initial"
+                        className="gap-2 cursor-pointer rounded-lg flex-1 lg:flex-initial"
                       >
-                        Pre-Auction
+                        <div className="flex">
+                          <span>Pre</span>
+                          <span className="hidden sm:flex">-Auction</span>
+                        </div>
                         <Badge
                           variant="secondary"
                           style={{
@@ -963,9 +1052,12 @@ function Dashboard() {
                       </TabsTrigger>
                       <TabsTrigger
                         value="live-auction"
-                        className="gap-2 cursor-pointer rounded-xl flex-1 lg:flex-initial"
+                        className="gap-2 cursor-pointer rounded-lg flex-1 lg:flex-initial"
                       >
-                        Live Auction
+                        <div className="flex">
+                          <span>Live</span>
+                          <span className="hidden sm:flex">&nbsp; Auction</span>
+                        </div>
                         <Badge
                           variant="secondary"
                           style={{
@@ -984,9 +1076,12 @@ function Dashboard() {
                       </TabsTrigger>
                       <TabsTrigger
                         value="post-auction"
-                        className="gap-2 cursor-pointer rounded-xl flex-1 lg:flex-initial"
+                        className="gap-2 cursor-pointer rounded-lg flex-1 lg:flex-initial"
                       >
-                        Post-Auction
+                        <div className="flex">
+                          <span>Post</span>
+                          <span className="hidden sm:flex">-Auction</span>
+                        </div>
                         <Badge
                           variant="secondary"
                           style={{
@@ -1282,10 +1377,12 @@ function Dashboard() {
                   {/* Pagination Controls */}
                   {totalItems > 0 && (
                     <div className="flex items-center justify-between px-2 py-4">
-                      <div className="flex items-center gap-4">
+                      <div className="sm:flex hidden items-center gap-4">
                         <div className="text-sm text-muted-foreground">
-                          Showing{' '}
-                          <span className="font-medium">{startIndex + 1}</span>{' '}
+                          {' '}
+                          <span className="font-medium">
+                            {startIndex + 1}
+                          </span>{' '}
                           to{' '}
                           <span className="font-medium">
                             {Math.min(endIndex, totalItems)}
@@ -1293,8 +1390,8 @@ function Dashboard() {
                           of <span className="font-medium">{totalItems}</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-2">
+                      <div className="flex ml-auto items-center gap-6 w-fit">
+                        <div className="sm:flex hidden items-center gap-2">
                           <p className="text-sm text-muted-foreground !mb-0">
                             Rows per page
                           </p>
@@ -1315,14 +1412,14 @@ function Dashboard() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="text-sm text-muted-foreground mr-2">
+                        <div className="text-sm font-medium mr-1">
                           Page {currentPage} of {totalPages}
                         </div>
                         <div className="flex items-center gap-2">
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-8 w-8"
+                            className="h-8 w-8 sm:flex hidden"
                             onClick={() => setCurrentPage(1)}
                             disabled={currentPage === 1}
                           >
@@ -1352,7 +1449,7 @@ function Dashboard() {
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-8 w-8"
+                            className="h-8 w-8 sm:flex hidden"
                             onClick={() => setCurrentPage(totalPages)}
                             disabled={currentPage === totalPages}
                           >
