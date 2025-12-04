@@ -153,7 +153,7 @@ export function BidModal({ isOpen, onClose, item, onSubmit }: BidModalProps) {
             Place Your Bid
           </DialogTitle>
           <DialogDescription className="text-left">
-            Review the item details and enter your bid amount
+            Review the details and enter your bid amount
           </DialogDescription>
         </DialogHeader>
 
@@ -196,30 +196,30 @@ export function BidModal({ isOpen, onClose, item, onSubmit }: BidModalProps) {
             </div>
           </div>
 
-          <Separator />
+          <Separator className="hidden lg:flex" />
 
           {/* Current Bid Information */}
           <div className="grid grid-cols-3 gap-2 lg:gap-4">
-            <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <Label className="text-xs text-muted-foreground">
+            <div className="text-center  p-2 lg:p-4 bg-muted/30 rounded-lg">
+              <Label className="text-xs text-muted-foreground flex items-center justify-center">
                 Starting Bid
               </Label>
               <p className="text-lg font-bold mt-1">
                 {formatCurrency(item.startingBid)}
               </p>
             </div>
-            <div className="text-center p-4 bg-primary/10 rounded-lg border-2 border-primary">
-              <Label className="text-xs text-muted-foreground">
+            <div className="text-center p-2 lg:p-4 bg-primary/10 rounded-lg border-2 border-primary">
+              <Label className="text-xs text-muted-foreground flex items-center justify-center">
                 Current Bid
               </Label>
-              <p className="text-md lg:text-lg font-bold mt-1 text-primary">
+              <p className="text-md lg:text-lg font-bold mt-1 text-default">
                 {item.currentBid > 0
                   ? formatCurrency(item.currentBid)
                   : 'No bids yet'}
               </p>
             </div>
-            <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <Label className="text-xs text-muted-foreground">
+            <div className="text-center p-2 lg:p-4 bg-muted/30 rounded-lg">
+              <Label className="text-xs text-muted-foreground flex items-center justify-center">
                 Total Bids
               </Label>
               <p className="text-lg font-bold mt-1">{item.bids}</p>
@@ -284,9 +284,8 @@ export function BidModal({ isOpen, onClose, item, onSubmit }: BidModalProps) {
             {/* Info Alert */}
             <Alert className="p-4 lg:p-6">
               <AlertDescription className="text-xs leading-tight">
-                <strong>Bidding Tips:</strong> A bid is binding. Make sure
-                you're ready to purchase if you win. Bids cannot be retracted
-                once placed.
+                <strong>Bidding Tips:</strong> A bid is binding—be sure you're
+                ready to purchase if you win. Bids cannot be retracted.
               </AlertDescription>
             </Alert>
           </div>
