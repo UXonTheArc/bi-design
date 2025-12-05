@@ -182,7 +182,7 @@ export function RegistrationForm({
                 Already have an account?{' '}
                 <a
                   href="#"
-                  className="text-blue-600 underline-offset-4 hover:underline cursor-pointer active:outline-none active:ring-2 active:ring-blue-500 active:ring-offset-2 active:ring-offset-blue-50"
+                  className="!text-blue-600 underline-offset-4 hover:underline cursor-pointer active:outline-none active:ring-2 active:ring-blue-500 active:ring-offset-2 active:ring-offset-blue-50"
                 >
                   Sign in
                 </a>

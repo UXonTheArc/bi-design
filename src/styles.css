@@ -61,7 +61,7 @@ li:not(.group\/menu-sub-item):not(.group\/menu-item):not(nav li) {
 }
 
 a {
-  @apply text-blue-600 hover:text-blue-800;
+  color: hsl(var(--link));
   text-decoration: none;
   &:hover {
     text-decoration: underline;
