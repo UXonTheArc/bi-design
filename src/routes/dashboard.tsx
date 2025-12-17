@@ -223,7 +223,7 @@ function DashboardWrapper({ children }: { children: React.ReactNode }) {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Auction Insights</BreadcrumbPage>
+                  <BreadcrumbPage>Auction Cockpit</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
