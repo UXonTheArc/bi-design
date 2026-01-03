@@ -15,6 +15,7 @@ import { Route as TargetRouteImport } from './routes/target'
 import { Route as StandardsRouteImport } from './routes/standards'
 import { Route as PersonasRouteImport } from './routes/personas'
 import { Route as PatternsRouteImport } from './routes/patterns'
+import { Route as MarketReportsRouteImport } from './routes/market-reports'
 import { Route as ImageryRouteImport } from './routes/imagery'
 import { Route as IdentityRouteImport } from './routes/identity'
 import { Route as FormsRouteImport } from './routes/forms'
@@ -52,6 +53,11 @@ const PersonasRoute = PersonasRouteImport.update({
 const PatternsRoute = PatternsRouteImport.update({
   id: '/patterns',
   path: '/patterns',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketReportsRoute = MarketReportsRouteImport.update({
+  id: '/market-reports',
+  path: '/market-reports',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImageryRoute = ImageryRouteImport.update({
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/forms': typeof FormsRoute
   '/identity': typeof IdentityRoute
   '/imagery': typeof ImageryRoute
+  '/market-reports': typeof MarketReportsRoute
   '/patterns': typeof PatternsRoute
   '/personas': typeof PersonasRoute
   '/standards': typeof StandardsRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/forms': typeof FormsRoute
   '/identity': typeof IdentityRoute
   '/imagery': typeof ImageryRoute
+  '/market-reports': typeof MarketReportsRoute
   '/patterns': typeof PatternsRoute
   '/personas': typeof PersonasRoute
   '/standards': typeof StandardsRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/forms': typeof FormsRoute
   '/identity': typeof IdentityRoute
   '/imagery': typeof ImageryRoute
+  '/market-reports': typeof MarketReportsRoute
   '/patterns': typeof PatternsRoute
   '/personas': typeof PersonasRoute
   '/standards': typeof StandardsRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/forms'
     | '/identity'
     | '/imagery'
+    | '/market-reports'
     | '/patterns'
     | '/personas'
     | '/standards'
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/forms'
     | '/identity'
     | '/imagery'
+    | '/market-reports'
     | '/patterns'
     | '/personas'
     | '/standards'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/forms'
     | '/identity'
     | '/imagery'
+    | '/market-reports'
     | '/patterns'
     | '/personas'
     | '/standards'
@@ -204,6 +216,7 @@ export interface RootRouteChildren {
   FormsRoute: typeof FormsRoute
   IdentityRoute: typeof IdentityRoute
   ImageryRoute: typeof ImageryRoute
+  MarketReportsRoute: typeof MarketReportsRoute
   PatternsRoute: typeof PatternsRoute
   PersonasRoute: typeof PersonasRoute
   StandardsRoute: typeof StandardsRoute
@@ -254,6 +267,13 @@ declare module '@tanstack/react-router' {
       path: '/patterns'
       fullPath: '/patterns'
       preLoaderRoute: typeof PatternsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/market-reports': {
+      id: '/market-reports'
+      path: '/market-reports'
+      fullPath: '/market-reports'
+      preLoaderRoute: typeof MarketReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/imagery': {
@@ -324,6 +344,7 @@ const rootRouteChildren: RootRouteChildren = {
   FormsRoute: FormsRoute,
   IdentityRoute: IdentityRoute,
   ImageryRoute: ImageryRoute,
+  MarketReportsRoute: MarketReportsRoute,
   PatternsRoute: PatternsRoute,
   PersonasRoute: PersonasRoute,
   StandardsRoute: StandardsRoute,

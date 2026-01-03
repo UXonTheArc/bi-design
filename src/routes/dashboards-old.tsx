@@ -82,7 +82,6 @@ const getStatusBadgeVariant = (
   | 'secondary'
   | 'destructive'
   | 'outline'
-  | 'successful'
   | 'warning'
   | 'neutral'
   | 'information' => {
@@ -92,7 +91,7 @@ const getStatusBadgeVariant = (
     case 'Active':
     case 'Completed':
     case 'Published':
-      return 'successful'
+      return 'default'
     case 'Pending':
     case 'Pending Payment':
     case 'Pending Pickup':
@@ -1894,7 +1893,7 @@ function Dashboard() {
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <Badge
-                              variant="successful"
+                              variant="default"
                               className="gap-1 cursor-help"
                             >
                               Completed
