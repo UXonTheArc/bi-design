@@ -240,21 +240,21 @@ const TractorPerformanceReport = () => {
 
         {/* Header */}
         <div className="mb-6">
-          <div className="flex items-start justify-between">
+          <div className="flex flex-col md:flex-row items-start justify-between">
             <div className="space-y-1">
-              <h1 className="text-3xl font-semibold leading-none tracking-tight">
+              <h1 className="!text-2xl md:!text-3xl font-semibold leading-none tracking-tight !mb-2">
                 50HP Tractor Auction Performance Report
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground !leading-5">
                 Comprehensive market analysis for similar equipment on BigIron
                 auctions
               </p>
             </div>
-            <div className="text-right">
+            <div className="flex flex-row md:flex-col text-left md:text-right items-center md:items-end mt-6 space-x-1 md:space-x-0 md:mt-0 ">
               <div className="text-xs text-muted-foreground">
-                Report Generated
+                Report Generated:
               </div>
-              <p className="text-sm font-semibold">December 23, 2025</p>
+              <div className="text-sm font-semibold">December 23, 2025</div>
             </div>
           </div>
         </div>
@@ -268,16 +268,16 @@ const TractorPerformanceReport = () => {
           >
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="30" className="cursor-pointer">
-                Last 30 Days
+                30 Days
               </TabsTrigger>
               <TabsTrigger value="60" className="cursor-pointer">
-                Last 60 Days
+                60 Days
               </TabsTrigger>
               <TabsTrigger value="90" className="cursor-pointer">
-                Last 90 Days
+                90 Days
               </TabsTrigger>
               <TabsTrigger value="365" className="cursor-pointer">
-                Last 365 Days
+                365 Days
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -317,7 +317,7 @@ const TractorPerformanceReport = () => {
               Average sale prices over the selected period
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pl-0">
             <ResponsiveContainer width="100%" height={250}>
               <LineChart data={currentData.trendData}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -408,8 +408,8 @@ const TractorPerformanceReport = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-6">
-                <ResponsiveContainer width="50%" height={220}>
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <ResponsiveContainer minWidth="50%" height={220}>
                   <PieChart>
                     <Pie
                       data={conditionData}
@@ -433,7 +433,7 @@ const TractorPerformanceReport = () => {
                     <Tooltip />
                   </PieChart>
                 </ResponsiveContainer>
-                <div className="flex-1 space-y-2">
+                <div className="w-full flex-1 space-y-2">
                   {conditionData.map((item, index) => (
                     <div
                       key={item.name}
@@ -466,7 +466,7 @@ const TractorPerformanceReport = () => {
                 Auction volume across manufacturers
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pl-0">
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={makeData}>
                   <CartesianGrid

@@ -75,7 +75,7 @@ function MarketReportsPage() {
     <SidebarProvider>
       <AppSidebar />
       <MarketReportsWrapper>
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 bg-sidebar">
+        <main className="flex flex-1 flex-col gap-4 p-0 lg:gap-6 lg:p-6 bg-sidebar">
           <MarketReport />
         </main>
       </MarketReportsWrapper>
